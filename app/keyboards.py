@@ -11,18 +11,22 @@ main = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text='Сер�
 
 services = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text='Onex', callback_data='onex')],
                                              [InlineKeyboardButton(text='Shipper', callback_data='shipper')],
-                                             [InlineKeyboardButton(text='Назад', callback_data='backtomain')]])
+                                             [InlineKeyboardButton(text='⬅️Назад', callback_data='backtomain')]])
 
 # Клавиатура для Onex
 onex_menu = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text='Пункт 1 Onex', callback_data='onex_option1')],
-    [InlineKeyboardButton(text='Пункт 2 Onex', callback_data='onex_option2')]
+    [InlineKeyboardButton(text='В Америке', callback_data='onex_usa')],
+    [InlineKeyboardButton(text='В пути', callback_data='onex_way')],
+    [InlineKeyboardButton(text='Загрузить в GDocs', callback_data='onex_gdocs')],
+    [InlineKeyboardButton(text='⬅️Назад', callback_data='backtoservices')]   
 ])
 
 # Клавиатура для Shipper
 shipper_menu = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text='Пункт 1 Shipper', callback_data='shipper_option1')],
-    [InlineKeyboardButton(text='Пункт 2 Shipper', callback_data='shipper_option2')]
+    [InlineKeyboardButton(text='В Америке', callback_data='shipper_usa')],
+    [InlineKeyboardButton(text='В пути', callback_data='shipper_way')],
+    [InlineKeyboardButton(text='Загрузить в GDocs', callback_data='shipper_gdocs')],
+    [InlineKeyboardButton(text='⬅️Назад', callback_data='backtoservices')]
 ])
 
 

@@ -50,8 +50,14 @@ async def shipper_option2(callback: CallbackQuery):
     await callback.answer("Был выбран пункт 2 Shipper")
     await callback.message.edit_text("Вы выбрали пункт 2 для Shipper.")
     
+''' Кнопки назад '''    
+    
 @router.callback_query(F.data == 'backtomain')
 async def back_to_main(callback: CallbackQuery):
     await callback.answer("Возвращаемся назад")
-    await callback.message.edit_text("Вы вернулись в главное меню", reply_markup=kb.main)
+    await callback.message.edit_text("Привет. Используй команду /help для списка команд, либо выбери команду в меню", reply_markup=kb.main)
 
+@router.callback_query(F.data == 'backtoservices')
+async def back_to_main(callback: CallbackQuery):
+    await callback.answer("Возвращаемся назад")
+    await callback.message.edit_text("Выберите желаемый сервис", reply_markup=kb.services)
