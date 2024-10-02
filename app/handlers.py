@@ -2,7 +2,6 @@ from aiogram import F, Router
 from aiogram.types import Message, CallbackQuery
 from aiogram.filters import Command, CommandStart
 import app.keyboards as kb
-import asyncio
 
 router = Router()
 

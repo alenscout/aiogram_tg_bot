@@ -3,8 +3,8 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 main = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text='Сервис', callback_data='service')],
                                              [InlineKeyboardButton(text='Команды', callback_data='commands')]])
 
-commands = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text='/start - Начать работу бота', callback_data='c_start')],
-                                             [InlineKeyboardButton(text='/help - Список доступных команд', callback_data='c_help')],
+commands = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text='/help - Список доступных команд', callback_data='c_help')],
+                                             [InlineKeyboardButton(text='/start - Начать работу бота', callback_data='c_start')],
                                              [InlineKeyboardButton(text='/list - Список доступных сервисов', callback_data='c_list')],
                                              [InlineKeyboardButton(text='⬅️Назад', callback_data='backtomain')]])
 
