@@ -2,6 +2,7 @@ from aiogram import F, Router
 from aiogram.types import Message, CallbackQuery
 from aiogram.filters import Command, CommandStart
 import app.keyboards as kb
+import asyncio
 
 router = Router()
 
@@ -11,7 +12,33 @@ async def start(message: Message):
 
 @router.message(Command('help'))
 async def help(message: Message):
-    await message.answer('Список команд: /help, /start, /list')
+    await message.answer('Вот список доступных команд:', reply_markup=kb.commands)
+
+@router.message(Command('list'))
+async def list(message: Message):
+    await message.answer('Список доступных сервисов на данный момент:', reply_markup=kb.services)       
+
+@router.callback_query(F.data == 'commands')
+async def callback_help(callback: CallbackQuery):
+    await callback.message.edit_text('Выберите команду', reply_markup=kb.commands)
+    
+@router.callback_query(F.data == 'c_start')
+async def callback_help(callback: CallbackQuery):
+    await start(callback.message)
+    await callback.message.delete()
+    await callback.answer()
+
+@router.callback_query(F.data == 'c_help')
+async def callback_help(callback: CallbackQuery):
+    await help(callback.message)
+    await callback.message.delete()
+    await callback.answer()
+
+@router.callback_query(F.data == 'c_list')
+async def callback_help(callback: CallbackQuery):
+    await list(callback.message)
+    await callback.message.delete()
+    await callback.answer()
 
 @router.callback_query(F.data == 'service')
 async def service(callback: CallbackQuery):
@@ -62,3 +89,19 @@ async def back_to_main(callback: CallbackQuery):
 @router.callback_query(F.data == 'backtoservices')
 async def back_to_main(callback: CallbackQuery):
     await callback.message.edit_text("Выберите желаемый сервис", reply_markup=kb.services)
+    
+''' Обработка текстовых сообщений'''
+
+@router.message(F.text)
+async def handle_text_message(message: Message):
+    user_text = message.text.lower()
+
+    if user_text in ['привет', 'салам']:
+        await message.answer(f"Еще раз привет, используй команду /start или меню для работы со мной.")
+    
+    elif user_text in ['список команд', 'команды']:
+        await message.answer('Список команд: /help, /start')
+    
+    else:
+        await message.answer("Не знаю такую команду, проверьте на правильность написания. Используйте /help или меню.")
+

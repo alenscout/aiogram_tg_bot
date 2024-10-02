@@ -5,8 +5,6 @@ from app.handlers import router
 from config import TOKEN
 from aiogram import Bot, Dispatcher
 
-
-#Первичная логика бота 
 bot = Bot(token=TOKEN) 
 dp = Dispatcher()
         
