@@ -43,6 +43,7 @@ async def callback_help(callback: CallbackQuery):
     await callback.message.delete()
     await callback.answer()
 
+# Сервисы
 @router.callback_query(F.data == 'service')
 async def service(callback: CallbackQuery):
     await callback.message.edit_text('Выберите желаемый сервис', reply_markup=kb.services)
@@ -60,12 +61,20 @@ async def shipper(callback: CallbackQuery):
 @router.callback_query(F.data == 'lifeshop')
 async def shipper(callback: CallbackQuery):
     await callback.answer("Выбран LifeShop")
-    await callback.message.edit_text("Вы выбрали Shipper. Выберите пункт:", reply_markup=kb.lifeshop_menu)
+    await callback.message.edit_text("Вы выбрали LifeShop. Выберите пункт:", reply_markup=kb.lifeshop_menu)
+
+@router.callback_query(F.data == 'gdocs')
+async def shipper(callback: CallbackQuery):
+    await callback.answer("Выбран Google Docs")
+    await callback.message.edit_text("Вы выбрали Google Docs. Выберите пункт:", reply_markup=kb.gdocs_menu)
+
 
 # Onex
 @router.callback_query(F.data == 'onex_usa')
-async def onex_usa_data(callback: CallbackQuery):
-    await callback.message.edit_text("В Америке")
+async def handle_onex_usa(callback: CallbackQuery):
+    result = await service_way_data(callback, url.onex_usa_url)
+    await callback.message.edit_text(result)
+    await callback.answer()
 
 @router.callback_query(F.data == 'onex_way')
 async def handle_onex_way(callback: CallbackQuery):
@@ -73,40 +82,37 @@ async def handle_onex_way(callback: CallbackQuery):
     await callback.message.edit_text(result)
     await callback.answer()
     
-@router.callback_query(F.data == 'onex_gdocs')
+@router.callback_query(F.data == 'onex_kg')
 async def onex_gdocs_data(callback: CallbackQuery):
     await asyncio.sleep(10)
-    await callback.message.edit_text("Загрузить в GDocs")
+    await callback.message.edit_text("В Кыргызстане")
 
 # Shipper
-@router.callback_query(F.data == 'shipper_usa')
-async def shipper_option1(callback: CallbackQuery):
-    await callback.message.edit_text("В Америке")
-
 @router.callback_query(F.data == 'shipper_way')
 async def handle_shipper_way(callback: CallbackQuery):
     result = await service_way_data(callback, url.shipper_way_url)
     await callback.message.edit_text(result)
     await callback.answer()
     
-@router.callback_query(F.data == 'shipper_gdocs')
-async def shipper_option3(callback: CallbackQuery):
-    await callback.message.edit_text("Загрузить в GDocs")
+@router.callback_query(F.data == 'shipper_useradd')
+async def shipper_useradd(callback: CallbackQuery):
+    await callback.message.edit_text("Добавить пользователя")
 
 # LifeShop
-@router.callback_query(F.data == 'lifeshop_usa')
-async def lifeshop_option1(callback: CallbackQuery):
-    await callback.message.edit_text("В Америке")
-
 @router.callback_query(F.data == 'lifeshop_way')
 async def handle_lifeshop_way(callback: CallbackQuery):
     result = await service_way_data(callback, url.lifeshop_way_url)
     await callback.message.edit_text(result)
     await callback.answer()
     
-@router.callback_query(F.data == 'lifeshop_gdocs')
+# Google Docs
+@router.callback_query(F.data == 'gdocs_write')
+async def lifeshop_option1(callback: CallbackQuery):
+    await callback.message.edit_text("Записать все посылки")
+    
+@router.callback_query(F.data == 'gdocs_smth')
 async def lifeshop_option3(callback: CallbackQuery):
-    await callback.message.edit_text("Загрузить в GDocs")
+    await callback.message.edit_text("что-то еще")
     
 ''' Кнопки назад '''    
     

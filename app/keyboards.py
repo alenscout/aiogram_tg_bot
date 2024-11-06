@@ -11,30 +11,35 @@ commands = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text='/he
 services = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text='Onex', callback_data='onex')],
                                              [InlineKeyboardButton(text='Shipper', callback_data='shipper')],
                                              [InlineKeyboardButton(text='LifeShop', callback_data='lifeshop')],
+                                             [InlineKeyboardButton(text='Google Docs', callback_data='gdocs')],
                                              [InlineKeyboardButton(text='⬅️Назад', callback_data='backtomain')]])
 
 
 # Клавиатура для Onex
 onex_menu = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text='В Америке', callback_data='onex_usa')],
+    [InlineKeyboardButton(text='На складе в Америке', callback_data='onex_usa')],
     [InlineKeyboardButton(text='В пути', callback_data='onex_way')],
-    [InlineKeyboardButton(text='Загрузить в GDocs', callback_data='onex_gdocs')],
+    [InlineKeyboardButton(text='В Кыргызстане', callback_data='onex_kg')],
     [InlineKeyboardButton(text='⬅️Назад', callback_data='backtoservices')]   
 ])
 
 # Клавиатура для Shipper
 shipper_menu = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text='В Америке', callback_data='shipper_usa')],
     [InlineKeyboardButton(text='В пути', callback_data='shipper_way')],
-    [InlineKeyboardButton(text='Загрузить в GDocs', callback_data='shipper_gdocs')],
+    [InlineKeyboardButton(text='Добавить пользователя', callback_data='shipper_useradd')],
     [InlineKeyboardButton(text='⬅️Назад', callback_data='backtoservices')]
 ])
 
 # Клавиатура для LifeShop
 lifeshop_menu = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text='В Америке', callback_data='lifeshop_usa')],
     [InlineKeyboardButton(text='В пути', callback_data='lifeshop_way')],
-    [InlineKeyboardButton(text='Загрузить в GDocs', callback_data='lifeshop_gdocs')],
+    [InlineKeyboardButton(text='⬅️Назад', callback_data='backtoservices')]
+])
+
+# Клавиатура для Google Docs
+gdocs_menu = InlineKeyboardMarkup(inline_keyboard=[
+    [InlineKeyboardButton(text='Записать все посылки', callback_data='gdocs_write')],
+    [InlineKeyboardButton(text='что-то еще', callback_data='gdocs_smth')],
     [InlineKeyboardButton(text='⬅️Назад', callback_data='backtoservices')]
 ])
 
