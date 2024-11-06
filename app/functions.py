@@ -1,7 +1,7 @@
 import requests
 from aiogram.types import CallbackQuery
 
-
+# функция в основном для Onex
 async def service_way_data(callback: CallbackQuery, url: str):
     response = requests.get(url)
     
