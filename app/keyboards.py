@@ -10,7 +10,9 @@ commands = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text='/he
 
 services = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text='Onex', callback_data='onex')],
                                              [InlineKeyboardButton(text='Shipper', callback_data='shipper')],
+                                             [InlineKeyboardButton(text='LifeShop', callback_data='lifeshop')],
                                              [InlineKeyboardButton(text='⬅️Назад', callback_data='backtomain')]])
+
 
 # Клавиатура для Onex
 onex_menu = InlineKeyboardMarkup(inline_keyboard=[
@@ -28,7 +30,13 @@ shipper_menu = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='⬅️Назад', callback_data='backtoservices')]
 ])
 
-
+# Клавиатура для LifeShop
+lifeshop_menu = InlineKeyboardMarkup(inline_keyboard=[
+    [InlineKeyboardButton(text='В Америке', callback_data='lifeshop_usa')],
+    [InlineKeyboardButton(text='В пути', callback_data='lifeshop_way')],
+    [InlineKeyboardButton(text='Загрузить в GDocs', callback_data='lifeshop_gdocs')],
+    [InlineKeyboardButton(text='⬅️Назад', callback_data='backtoservices')]
+])
 
 
 # services = ['Onex', 'Shipper']
