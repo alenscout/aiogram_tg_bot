@@ -8,7 +8,6 @@ import asyncio
 
 router = Router()
 
-
 @router.message(CommandStart())
 async def start(message: Message):
     await message.answer("Привет. Используй команду /help для списка команд, либо выбери команду в меню", reply_markup=kb.main)
@@ -69,6 +68,7 @@ async def shipper(callback: CallbackQuery):
     await callback.message.edit_text("Вы выбрали Google Docs. Выберите пункт:", reply_markup=kb.gdocs_menu)
 
 
+
 # Onex
 @router.callback_query(F.data == 'onex_usa')
 async def handle_onex_usa(callback: CallbackQuery):
@@ -87,6 +87,8 @@ async def onex_gdocs_data(callback: CallbackQuery):
     await asyncio.sleep(10)
     await callback.message.edit_text("В Кыргызстане")
 
+
+
 # Shipper
 @router.callback_query(F.data == 'shipper_way')
 async def handle_shipper_way(callback: CallbackQuery):
@@ -98,12 +100,16 @@ async def handle_shipper_way(callback: CallbackQuery):
 async def shipper_useradd(callback: CallbackQuery):
     await callback.message.edit_text("Добавить пользователя")
 
+
+
 # LifeShop
 @router.callback_query(F.data == 'lifeshop_way')
 async def handle_lifeshop_way(callback: CallbackQuery):
     result = await service_way_data(callback, url.lifeshop_way_url)
     await callback.message.edit_text(result)
     await callback.answer()
+    
+
     
 # Google Docs
 @router.callback_query(F.data == 'gdocs_write')
@@ -113,6 +119,8 @@ async def lifeshop_option1(callback: CallbackQuery):
 @router.callback_query(F.data == 'gdocs_smth')
 async def lifeshop_option3(callback: CallbackQuery):
     await callback.message.edit_text("что-то еще")
+    
+    
     
 ''' Кнопки назад '''    
     
