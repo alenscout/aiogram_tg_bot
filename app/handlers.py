@@ -72,7 +72,7 @@ async def shipper(callback: CallbackQuery):
 # Onex
 @router.callback_query(F.data == 'onex_usa')
 async def handle_onex_usa(callback: CallbackQuery):
-    result = await fn.onex_way_data(callback, url.onex_usa_url)
+    result = await fn.service_way_data(callback, url.onex_usa_url)
     await callback.message.edit_text(result)
     await callback.answer()
 
@@ -84,8 +84,9 @@ async def handle_onex_way(callback: CallbackQuery):
     
 @router.callback_query(F.data == 'onex_kg')
 async def onex_gdocs_data(callback: CallbackQuery):
-    await asyncio.sleep(10)
-    await callback.message.edit_text("В Кыргызстане")
+    result = await fn.service_way_data(callback, url.onex_kg_url)
+    await callback.message.edit_text(result)
+    await callback.answer()
 
 
 

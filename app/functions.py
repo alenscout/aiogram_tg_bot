@@ -18,7 +18,7 @@ async def service_way_data(callback: CallbackQuery, url: str):
                 parts = item.split(" - ")
                 if len(parts) == 3:
                     number, name, price = parts
-                    result += f"Трэк: {number}\nТовар: {name}\nЦена: {price}\n\n"
+                    result += f"🆔: {number}\n📦: {name}\n💵 доставки: {price}\n\n"
             else:
                 # Если вдруг формат данных будет другим
                 result += "Запись содержит неподдерживаемый формат данных\n\n"
