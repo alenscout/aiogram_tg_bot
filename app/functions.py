@@ -1,7 +1,7 @@
 import requests
 from aiogram.types import CallbackQuery
-    
-# тест функция общая
+
+#тест теста
 async def service_way_data(callback: CallbackQuery, url: str):
     response = requests.get(url)
     
@@ -18,7 +18,11 @@ async def service_way_data(callback: CallbackQuery, url: str):
                 parts = item.split(" - ")
                 if len(parts) == 3:
                     number, name, price = parts
-                    result += f"🆔: {number}\n📦: {name}\n💵 доставки: {price}\n\n"
+                    result += (
+                        f"*Трэк:* `{number}`\n"
+                        f"📦 *Товар:* {name}\n"
+                        f"💰 *Цена доставки:* {price}\n\n"
+                    )
             else:
                 # Если вдруг формат данных будет другим
                 result += "Запись содержит неподдерживаемый формат данных\n\n"
@@ -26,7 +30,6 @@ async def service_way_data(callback: CallbackQuery, url: str):
         return result if result else "Данные пусты"
     else:
         return "Error"
-
 
 # функция в основном для Onex **старый вариант(на lifeshop выдавал ошибку)**
 # async def onex_way_data(callback: CallbackQuery, url: str):

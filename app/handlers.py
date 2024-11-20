@@ -1,4 +1,5 @@
 from aiogram import F, Router
+from aiogram.enums import ParseMode
 from aiogram.types import Message, CallbackQuery
 from aiogram.filters import Command, CommandStart
 import app.keyboards as kb
@@ -67,25 +68,23 @@ async def shipper(callback: CallbackQuery):
     await callback.answer("Выбран Google Docs")
     await callback.message.edit_text("Вы выбрали Google Docs. Выберите пункт:", reply_markup=kb.gdocs_menu)
 
-
-
 # Onex
 @router.callback_query(F.data == 'onex_usa')
 async def handle_onex_usa(callback: CallbackQuery):
     result = await fn.service_way_data(callback, url.onex_usa_url)
-    await callback.message.edit_text(result)
+    await callback.message.edit_text(result, parse_mode=ParseMode.MARKDOWN)
     await callback.answer()
 
 @router.callback_query(F.data == 'onex_way')
 async def handle_onex_way(callback: CallbackQuery):
     result = await fn.service_way_data(callback, url.onex_way_url)
-    await callback.message.edit_text(result)
+    await callback.message.edit_text(result, parse_mode=ParseMode.MARKDOWN)
     await callback.answer()
     
 @router.callback_query(F.data == 'onex_kg')
 async def onex_gdocs_data(callback: CallbackQuery):
     result = await fn.service_way_data(callback, url.onex_kg_url)
-    await callback.message.edit_text(result)
+    await callback.message.edit_text(result, parse_mode=ParseMode.MARKDOWN)
     await callback.answer()
 
 
@@ -94,7 +93,7 @@ async def onex_gdocs_data(callback: CallbackQuery):
 @router.callback_query(F.data == 'shipper_way')
 async def handle_shipper_way(callback: CallbackQuery):
     result = await fn.shipper_way_data(callback, url.shipper_way_url)
-    await callback.message.edit_text(result)
+    await callback.message.edit_text(result, parse_mode=ParseMode.MARKDOWN)
     await callback.answer()
     
 @router.callback_query(F.data == 'shipper_useradd')
@@ -107,7 +106,7 @@ async def shipper_useradd(callback: CallbackQuery):
 @router.callback_query(F.data == 'lifeshop_way')
 async def handle_lifeshop_way(callback: CallbackQuery):
     result = await fn.service_way_data(callback, url.lifeshop_way_url)
-    await callback.message.edit_text(result)
+    await callback.message.edit_text(result, parse_mode=ParseMode.MARKDOWN)
     await callback.answer()
     
 
