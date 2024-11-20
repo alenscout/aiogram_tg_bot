@@ -14,7 +14,7 @@ public_ip = response.text.strip()
 
 # Чтение файла .env и запись публичного IP
 with open(env_path, "w") as f:
-    f.write(public_ip)   
+    f.write(f"IP_ADDRESS={public_ip}\n")   
     
 ''' Запуск бота '''
 
