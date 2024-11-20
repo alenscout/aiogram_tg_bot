@@ -1,9 +1,9 @@
-from app.functions import service_way_data
 from aiogram import F, Router
 from aiogram.types import Message, CallbackQuery
 from aiogram.filters import Command, CommandStart
 import app.keyboards as kb
 import app.urls as url
+import app.functions as fn
 import asyncio
 
 router = Router()
@@ -72,13 +72,13 @@ async def shipper(callback: CallbackQuery):
 # Onex
 @router.callback_query(F.data == 'onex_usa')
 async def handle_onex_usa(callback: CallbackQuery):
-    result = await service_way_data(callback, url.onex_usa_url)
+    result = await fn.onex_way_data(callback, url.onex_usa_url)
     await callback.message.edit_text(result)
     await callback.answer()
 
 @router.callback_query(F.data == 'onex_way')
 async def handle_onex_way(callback: CallbackQuery):
-    result = await service_way_data(callback, url.onex_way_url)
+    result = await fn.service_way_data(callback, url.onex_way_url)
     await callback.message.edit_text(result)
     await callback.answer()
     
@@ -92,7 +92,7 @@ async def onex_gdocs_data(callback: CallbackQuery):
 # Shipper
 @router.callback_query(F.data == 'shipper_way')
 async def handle_shipper_way(callback: CallbackQuery):
-    result = await service_way_data(callback, url.shipper_way_url)
+    result = await fn.shipper_way_data(callback, url.shipper_way_url)
     await callback.message.edit_text(result)
     await callback.answer()
     
@@ -105,7 +105,7 @@ async def shipper_useradd(callback: CallbackQuery):
 # LifeShop
 @router.callback_query(F.data == 'lifeshop_way')
 async def handle_lifeshop_way(callback: CallbackQuery):
-    result = await service_way_data(callback, url.lifeshop_way_url)
+    result = await fn.service_way_data(callback, url.lifeshop_way_url)
     await callback.message.edit_text(result)
     await callback.answer()
     
