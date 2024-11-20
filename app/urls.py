@@ -1,26 +1,21 @@
-import requests
-# Путь к файлу .env
-env_path = "/home/alen/aiogram_tg_bot/aiogram_tg_bot/.env"
-response = requests.get("https://ifconfig.me")
-public_ip = response.text.strip()
-
-# Чтение файла .env и запись публичного IP
-with open(env_path, "w") as f:
-    f.write(f"SERVER_IP={public_ip}\n")
-
-print(f"Public IP: {public_ip}")
-
 # Onex URLS
-ip = public_ip
-compress = 'http://' + ip + ":8000/"
+def load_ip_from_env(filename=".env"):
+    with open(filename, "r") as file:
+        for line in file:
+            line = line.strip()
+            if line.startswith("IP_ADDRESS="):
+                return line.split("=", 1)[1].strip()
+
+ip = load_ip_from_env()
+compress = f"http://{ip}:8000/"
 api = 'api/v1/'
 
-onex_way_url = ip + api + "onex_on_the_way"
-onex_usa_url = ip + api + 'onex_at_warehouse'
-onex_kg_url = ip + api + 'onex_ready'
+onex_way_url = compress + api + "onex_on_the_way"
+onex_usa_url = compress + api + 'onex_at_warehouse'
+onex_kg_url = compress + api + 'onex_ready'
 
 # Shipper URLS
-shipper_way_url = ip + api + 'shipper'
+shipper_way_url = compress + api + 'shipper'
 
 # LifeShop URLS
-lifeshop_way_url = ip + api + 'lifeshop'
+lifeshop_way_url = compress + api + 'lifeshop'

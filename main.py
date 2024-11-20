@@ -1,13 +1,20 @@
 import logging
-import asyncio
-
+import asyncio,requests,os
 from app.handlers import router
 from config import TOKEN
 from aiogram import Bot, Dispatcher
 
 bot = Bot(token=TOKEN) 
 dp = Dispatcher()
-        
+ 
+# Логика для Public ip
+env_path = "/home/ubuntu/aiogram_tg_bot/.env"
+response = requests.get("https://ifconfig.me")
+public_ip = response.text.strip()
+
+# Чтение файла .env и запись публичного IP
+with open(env_path, "w") as f:
+    f.write(public_ip)   
     
 ''' Запуск бота '''
 
