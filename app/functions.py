@@ -6,7 +6,7 @@ async def service_way_data(callback: CallbackQuery, url: str):
     response = requests.get(url)
     
     if response.status_code == 200:
-        data = response.json(ensure_ascii = False).get("data", [])
+        data = response.json().get("data", [])
         
         result = ""
         for item in data:
@@ -18,3 +18,5 @@ async def service_way_data(callback: CallbackQuery, url: str):
         return result if result else "Данные пусты"
     else:
         return "Error"
+    
+# функция для LifeShop
