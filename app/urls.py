@@ -1,17 +1,16 @@
-import os
+import os, requests
 # Путь к файлу .env
 env_path = "/home/ubuntu/aiogram_tg_bot/.env"
+response = requests.get("https://ifconfig.me")
+public_ip = response.text.strip()
 
-server_ip = None
-if os.path.exists(env_path):
-    with open(env_path) as f:
-        for line in f:
-            if line.startswith("SERVER_IP="):  # Проверяем только нужную переменную
-                server_ip = line.strip().split('=', 1)[1]
-                break
+with open(env_path, "a") as f:
+    f.write(f"SERVER_IP={public_ip}\n")
+
+print(f"Public IP: {public_ip}")
 
 # Onex URLS
-ip = server_ip
+ip = public_ip
 compress = 'http://' + ip + ":8000/"
 api = 'api/v1/'
 
