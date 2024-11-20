@@ -1,5 +1,18 @@
+import os
+# Путь к файлу .env
+env_path = "/home/ubuntu/aiogram_tg_bot/.env"
+
+server_ip = None
+if os.path.exists(env_path):
+    with open(env_path) as f:
+        for line in f:
+            if line.startswith("SERVER_IP="):  # Проверяем только нужную переменную
+                server_ip = line.strip().split('=', 1)[1]
+                break
+
 # Onex URLS
-ip = 'http://' + '13.49.227.118' + ":8000/"
+ip = server_ip
+compress = 'http://' + ip + ":8000/"
 api = 'api/v1/'
 
 onex_way_url = ip + api + "onex_on_the_way"
