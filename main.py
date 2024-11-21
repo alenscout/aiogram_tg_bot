@@ -8,13 +8,13 @@ bot = Bot(token=TOKEN)
 dp = Dispatcher()
  
 # Логика для Public ip
-env_path = "/home/ubuntu/aiogram_tg_bot/.env"
-response = requests.get("https://ifconfig.me")
-public_ip = response.text.strip()
+# env_path = "/home/ubuntu/aiogram_tg_bot/.env"
+# response = requests.get("https://ifconfig.me")
+# public_ip = response.text.strip()
 
-# Чтение файла .env и запись публичного IP
-with open(env_path, "w") as f:
-    f.write(f"IP_ADDRESS={public_ip}\n")   
+# # Чтение файла .env и запись публичного IP
+# with open(env_path, "w") as f:
+#     f.write(f"IP_ADDRESS={public_ip}\n")   
     
 ''' Запуск бота '''
 

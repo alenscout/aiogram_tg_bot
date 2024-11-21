@@ -1,11 +1,13 @@
-from aiogram import F, Router
+from aiogram import F, Router, types
 from aiogram.enums import ParseMode
 from aiogram.types import Message, CallbackQuery
 from aiogram.filters import Command, CommandStart
+from aiogram.fsm.context import FSMContext
+from aiogram.fsm.state import StatesGroup, State
+import requests
 import app.keyboards as kb
 import app.urls as url
 import app.functions as fn
-import asyncio
 
 router = Router()
 
@@ -109,6 +111,76 @@ async def handle_lifeshop_way(callback: CallbackQuery):
     await callback.message.edit_text(result, parse_mode=ParseMode.MARKDOWN)
     await callback.answer()
     
+# Exchanger
+
+class ExchangeState(StatesGroup):
+    waiting_for_amount = State()
+
+@router.callback_query(lambda c: c.data == "exchanger")
+async def ask_amount(callback: types.CallbackQuery, state: FSMContext):
+    await callback.message.answer("Введите число для обмена:")
+    await state.set_state(ExchangeState.waiting_for_amount)
+
+@router.message(ExchangeState.waiting_for_amount)
+async def process_amount(message: types.Message, state: FSMContext):
+    try:
+        # Получаем текст сообщения и убираем пробелы
+        user_input = message.text.strip()
+        print(f"Ввод пользователя: '{user_input}'")  # Отладка
+
+        # Преобразуем в целое число
+        amount = int(user_input)
+        print(f"Преобразованное число: {amount}")  # Отладка
+
+        # Проверяем, что число положительное
+        if amount <= 0:
+            raise ValueError("Число должно быть положительным.")
+
+        # Если все ок, формируем ссылку
+        link = f"http://13.50.17.4:8000/api/v1/drop?amount={amount}"
+        print(f"Сформированная ссылка: {link}")  # Отладка
+
+        # Выполняем запрос
+        response = requests.get(link)
+        print(f"HTTP-статус ответа: {response.status_code}")  # Отладка
+
+        if response.status_code == 200:
+            data = response.json()
+            print(f"Полученные данные: {data}")  # Отладка
+
+            # Проверка наличия данных в ключе "data"
+            if "data" in data and len(data["data"]) > 0:
+                exchange_info = data["data"][0]
+                print(f"Информация о обмене: {exchange_info}")  # Отладка
+
+                # Проверяем, что строка в нужном формате
+                if isinstance(exchange_info, str):
+                    # Разбиваем строку на две части: долларов и курса
+                    parts = exchange_info.split("\n")
+                    if len(parts) >= 2:
+                        dollars = parts[0].split(":")[1].strip()  # Получаем сумму в долларах
+                        ruble_rate = parts[1].split(":")[1].strip()  # Получаем курс рубля
+
+                        # Формируем сообщение для пользователя
+                        message_text = f"Вы получите: *{dollars}*\nКурс рубля: `{ruble_rate}`"
+                        await message.answer(message_text, parse_mode=ParseMode.MARKDOWN)
+                    else:
+                        await message.answer("Неверный формат данных в ответе.")
+                else:
+                    await message.answer("Полученные данные не в строковом формате.")
+            else:
+                await message.answer("Ответ не содержит данных для обработки.")
+        else:
+            await message.answer(f"Ошибка при запросе данных: {response.status_code}")
+
+    except ValueError as e:
+        print(f"Ошибка ValueError: {e}")  # Отладка
+        await message.answer("Введите корректное положительное число.")
+    except Exception as e:
+        print(f"Неизвестная ошибка: {e}")  # Отладка
+        await message.answer(f"Произошла ошибка: {e}")
+    finally:
+        await state.clear()
 
     
 # Google Docs

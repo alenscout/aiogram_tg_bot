@@ -10,6 +10,7 @@ ip = load_ip_from_env()
 compress = f"http://{ip}:8000/"
 api = 'api/v1/'
 
+# Onex URLS
 onex_way_url = compress + api + "onex_on_the_way"
 onex_usa_url = compress + api + 'onex_at_warehouse'
 onex_kg_url = compress + api + 'onex_ready'
@@ -19,3 +20,6 @@ shipper_way_url = compress + api + 'shipper'
 
 # LifeShop URLS
 lifeshop_way_url = compress + api + 'lifeshop'
+
+# Exchanger
+exchanger_url = compress + api

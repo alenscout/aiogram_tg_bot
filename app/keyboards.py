@@ -1,7 +1,8 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 main = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text='Сервис', callback_data='service')],
-                                             [InlineKeyboardButton(text='Команды', callback_data='commands')]])
+                                             [InlineKeyboardButton(text='Команды', callback_data='commands')],
+                                             [InlineKeyboardButton(text='Обмен', callback_data='exchanger')]])
 
 commands = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text='/help - Список доступных команд', callback_data='c_help')],
                                              [InlineKeyboardButton(text='/start - Начать работу бота', callback_data='c_start')],
