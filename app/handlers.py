@@ -124,23 +124,20 @@ async def ask_amount(callback: types.CallbackQuery, state: FSMContext):
 @router.message(ExchangeState.waiting_for_amount)
 async def process_amount(message: types.Message, state: FSMContext):
     try:
-        # Получаем текст сообщения и убираем пробелы
         user_input = message.text.strip()
         print(f"Ввод пользователя: '{user_input}'")  # Отладка
 
-        # Преобразуем в целое число
         amount = int(user_input)
         print(f"Преобразованное число: {amount}")  # Отладка
 
-        # Проверяем, что число положительное
+        # Проверяем, что число не отрицательное
         if amount <= 0:
             raise ValueError("Число должно быть положительным.")
 
-        # Если все ок, формируем ссылку
+        # Если все ок, то формируем ссылку
         link = f"http://13.50.17.4:8000/api/v1/drop?amount={amount}"
         print(f"Сформированная ссылка: {link}")  # Отладка
 
-        # Выполняем запрос
         response = requests.get(link)
         print(f"HTTP-статус ответа: {response.status_code}")  # Отладка
 
@@ -155,13 +152,12 @@ async def process_amount(message: types.Message, state: FSMContext):
 
                 # Проверяем, что строка в нужном формате
                 if isinstance(exchange_info, str):
-                    # Разбиваем строку на две части: долларов и курса
+                    # Разбиваем строку на две части: долларов и курса рубля
                     parts = exchange_info.split("\n")
                     if len(parts) >= 2:
-                        dollars = parts[0].split(":")[1].strip()  # Получаем сумму в долларах
-                        ruble_rate = parts[1].split(":")[1].strip()  # Получаем курс рубля
+                        dollars = parts[0].split(":")[1].strip() 
+                        ruble_rate = parts[1].split(":")[1].strip()
 
-                        # Формируем сообщение для пользователя
                         message_text = f"Вы получите: *{dollars}*\nКурс рубля: `{ruble_rate}`"
                         await message.answer(message_text, parse_mode=ParseMode.MARKDOWN)
                     else:
@@ -173,12 +169,12 @@ async def process_amount(message: types.Message, state: FSMContext):
         else:
             await message.answer(f"Ошибка при запросе данных: {response.status_code}")
 
-    except ValueError as e:
-        print(f"Ошибка ValueError: {e}")  # Отладка
+    except ValueError:
+        print(f"Ошибка ValueError: {ValueError}")  # Отладка
         await message.answer("Введите корректное положительное число.")
-    except Exception as e:
-        print(f"Неизвестная ошибка: {e}")  # Отладка
-        await message.answer(f"Произошла ошибка: {e}")
+    except Exception:
+        print(f"Неизвестная ошибка: {Exception}")  # Отладка
+        await message.answer(f"Произошла ошибка: {Exception}")
     finally:
         await state.clear()
 
